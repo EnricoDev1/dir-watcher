@@ -4,6 +4,7 @@
 #include <sys/inotify.h>
 
 #define EV_SIZE (sizeof(struct inotify_event))
+#define IN_ALL (IN_ACCESS | IN_CREATE | IN_DELETE | IN_MODIFY | IN_ATTRIB | IN_CLOSE_WRITE | IN_CLOSE_NOWRITE | IN_DELETE | IN_MOVE_SELF | IN_MOVED_FROM | IN_MOVED_TO | IN_OPEN)
 
 int main(int argc, char *argv[]) {
   if (argc != 2) {
@@ -16,7 +17,6 @@ int main(int argc, char *argv[]) {
     perror("inotify_init");
     return 1;
   }
-  #define IN_ALL (IN_ACCESS | IN_CREATE | IN_DELETE | IN_MODIFY | IN_ATTRIB | IN_CLOSE_WRITE | IN_CLOSE_NOWRITE | IN_DELETE | IN_MOVE_SELF | IN_MOVED_FROM | IN_MOVED_TO | IN_OPEN)
   
   int wfd = inotify_add_watch(ifd, argv[1], IN_ALL);
   if (wfd == -1) {
